@@ -49,7 +49,6 @@ namespace TCP
 		//连接到服务器
 		public void ConnectToServer(string ip, int port)
 		{
-
 			if (isConnected)
 				return;
 
@@ -66,6 +65,23 @@ namespace TCP
 			{
 				Debug.LogError(e);
 			}
+		}
+
+		//断开连接
+		public void Disconnect()
+		{
+			writer.Close();
+			reader.Close();
+			socket.Close();
+
+			isConnected = false;
+		}
+
+		//退出时断开连接
+		private void OnApplicationQuit()
+		{
+			//断开连接
+			Disconnect();
 		}
 
 		//发送消息

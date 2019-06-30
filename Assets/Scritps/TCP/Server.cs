@@ -117,24 +117,30 @@ namespace TCP
 		//当接收到客户 
 		private void OnAcceptNewClient(IAsyncResult ar)
 		{
-			TcpListener listener = (TcpListener)ar.AsyncState;
+			try
+			{
+				TcpListener listener = (TcpListener)ar.AsyncState;
 
-			ServerClient client = new ServerClient(listener.EndAcceptTcpClient(ar));
+				ServerClient client = new ServerClient(listener.EndAcceptTcpClient(ar));
 
-			clients.Add(client);
+				clients.Add(client);
 
-			//继续监听
-			StartListening();
+				//继续监听
+				StartListening();
 
-			Output(string.Format("玩家{0}加入。", client.name));
-			//发送全体信息，新玩家加入
-			Broadcast(string.Format("玩家{0}加入。", client.name), clients);
+				//发送全体信息，新玩家加入
+				Broadcast(string.Format("玩家{0}加入。", client.name), clients);
+			}
+			catch (Exception e)
+			{
+				Debug.LogError(e);
+			}
 		}
 
 		//广播消息
 		void Broadcast(string msg, List<ServerClient> clients)
 		{
-			Output("广播：" + msg);
+			//Output("广播：" + msg);
 
 			foreach (var c in clients)
 			{
