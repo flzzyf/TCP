@@ -10,8 +10,7 @@ public class ServerManager : Singleton<ServerManager>
 	Server server;
 	Client client;
 
-	const int port = 1234;
-	const string localIP = "127.0.0.1";
+	const int port = 12345;
 
 	void Start()
     {
@@ -21,9 +20,7 @@ public class ServerManager : Singleton<ServerManager>
 
     public void StartServer()
 	{
-		//获取IP？
-
-		server.StartServer(localIP, port);
+		server.StartServer(port);
 	}
 
 	public void JoinServer(string ip)

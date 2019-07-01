@@ -88,11 +88,13 @@ namespace TCP
 		}
 
 		//启动服务器
-		public void StartServer(string ip, int port)
+		public void StartServer(int port)
 		{
 			try
 			{
-				//server = new TcpListener(IPAddress.Parse(ip), port);
+				print(GetIP());
+				print(GetIP().MapToIPv4());
+				print(IPAddress.Any.MapToIPv4());
 				server = new TcpListener(IPAddress.Any, port);
 				server.Start();
 
@@ -156,6 +158,16 @@ namespace TCP
 					Debug.LogError(e);
 				}
 			}
+		}
+
+		private IPAddress GetIP()
+		{ 
+			IPHostEntry iep = Dns.GetHostEntry(Dns.GetHostName());
+
+			IPAddress ip = iep.AddressList[0];
+			ip = ip.MapToIPv4();
+
+			return ip;
 		}
 
 		void Output(string s)
