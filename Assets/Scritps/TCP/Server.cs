@@ -92,8 +92,8 @@ namespace TCP
 		{
 			try
 			{
-				print(GetIP());
-				print(GetIP().MapToIPv4());
+				//print(GetIP());
+				//print(GetIP().MapToIPv4());
 				print(IPAddress.Any.MapToIPv4());
 				server = new TcpListener(IPAddress.Any, port);
 				server.Start();
