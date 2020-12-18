@@ -79,7 +79,12 @@ public class BroadcastManager : Singleton<BroadcastManager> {
 
     //自动关闭
     private void OnApplicationQuit() {
-        if(receiver != null && receiver.Connected)
+        if(receiver != null) {
             receiver.Close();
+        }
+
+        if (broadcaster != null) {
+            broadcaster.Close();
+        }
     }
 }

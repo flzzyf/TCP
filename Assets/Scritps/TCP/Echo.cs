@@ -4,11 +4,8 @@ using UnityEngine;
 using System;
 using System.Net;
 using System.Net.Sockets;
-using UnityEngine.UI;
 
 public class Echo : Singleton<Echo> {
-    public Text text;
-
     Socket socket;
     int port = 1234;
 
@@ -18,12 +15,14 @@ public class Echo : Singleton<Echo> {
     public void Connect(string ip) {
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socket.BeginConnect(ip, port, ConnectCallback, socket);
+
+        GameManager.Print("连接");
     }
     void ConnectCallback(IAsyncResult ar) {
         try {
             Socket socket = (Socket)ar.AsyncState;
             socket.EndConnect(ar);
-            Print("连接成功");
+            GameManager.Print("连接成功");
         } catch (Exception e) {
             Debug.LogError(e);
         }
@@ -36,14 +35,14 @@ public class Echo : Singleton<Echo> {
             int count = socket.EndReceive(ar);
 
             if (count <= 0) {
-                Print("服务器离线");
+                GameManager.Print("服务器离线");
 
                 return;
             }
 
             string receiveStr = System.Text.Encoding.Default.GetString(readBuffer, 0, count);
 
-            Print("收到消息：" + receiveStr);
+            GameManager.Print("收到消息：" + receiveStr);
 
             socket.BeginReceive(readBuffer, 0, 1024, 0, ReceiveCallback, socket);
 
@@ -66,13 +65,6 @@ public class Echo : Singleton<Echo> {
         }
     }
 
-    string s;
-    void Print(object msg) {
-        if (s != "")
-            s += "\n";
-
-        s += msg.ToString();
-    }
     private void Update() {
         if (socket == null)
             return;
@@ -87,11 +79,8 @@ public class Echo : Singleton<Echo> {
 
             string receiveStr = System.Text.Encoding.Default.GetString(readBuffer, 0, count);
 
-            //Print(receiveStr);
             Panel_Chat.instance.SendText(receiveStr);
         }
-
-        text.text = s;
     }
 
     private void OnApplicationQuit() {

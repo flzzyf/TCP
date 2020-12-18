@@ -1958,6 +1958,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel_Lobby: {fileID: 2106197622}
   panel_Chat: {fileID: 1477063993}
+  text: {fileID: 1773957920}
+  text2: {fileID: 457108255}
 --- !u!4 &1587546251
 Transform:
   m_ObjectHideFlags: 0
@@ -2009,7 +2011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4a51f5cd3b2f6418adc44e132b61ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 1773957920}
 --- !u!1001 &1618286840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2404,7 +2405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:

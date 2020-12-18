@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -12,8 +11,6 @@ class ClientInfo {
 }
 
 public class EchoServer : Singleton<EchoServer> {
-    public Text text;
-
     Socket server;
     int port = 1234;
 
@@ -61,8 +58,6 @@ public class EchoServer : Singleton<EchoServer> {
     void Send(Socket socket, string msg) {
         byte[] bytes = System.Text.Encoding.Default.GetBytes(msg);
         socket.Send(bytes);
-
-        string ip = ((IPEndPoint)socket.LocalEndPoint).Address.ToString();
     }
 
     //广播给所有客户端
@@ -74,17 +69,6 @@ public class EchoServer : Singleton<EchoServer> {
 
     string GetIP(Socket socket) {
         return ((IPEndPoint)socket.RemoteEndPoint).Address.ToString();
-    }
-
-
-    //---------------
-
-    string s = "";
-    void Print(object msg) {
-        if(s != "")
-            s += "\n";
-
-        s += msg.ToString();
     }
 
     private void Update() {
@@ -117,8 +101,6 @@ public class EchoServer : Singleton<EchoServer> {
                 Broadcast(msg);
             }
         }
-
-        text.text = s;
     }
 
 
@@ -132,7 +114,6 @@ public class EchoServer : Singleton<EchoServer> {
             Socket socket = info.socket;
             if (socket != null) {
                 socket.Close();
-                socket = null;
             }
         }
     }
